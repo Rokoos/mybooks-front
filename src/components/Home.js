@@ -44,7 +44,7 @@ export default class Home extends Component {
        return (
            <div className="container">
             <div className="row text-center center_books ">
-             <h2 className="mt-5 mb-5 home-text">Books we are talking about...</h2>
+             <h2 className="mt-5 mb-5 home-text">Write about Your favourite books</h2>
              
              {
                loading ? (<Spinner/>) : posts.length === 0 ? (<h5 className="mt-5 mb-5">There are no posts.</h5>) : (this.renderBooks(posts))
