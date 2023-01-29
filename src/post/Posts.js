@@ -161,7 +161,7 @@ class Posts extends Component {
           text={this.state.text}
           category={this.state.category}
         />
-        <h2 className="mt-5 mb-5">Posts</h2>
+        <h2 className="mt-5 mb-5">Books</h2>
         <div className="posts_container">
           {loading ? (
             <Spinner />
