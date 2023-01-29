@@ -43,7 +43,7 @@
   align-items: center;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 815px) {
   .nav_active {
     align-self: start;
     height: 100%;
@@ -126,6 +126,7 @@
 .comment_info {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 .comment_info-user {
   margin-left: 7px;
@@ -137,6 +138,7 @@
 .profileButtons {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .custom_btn {
@@ -156,6 +158,7 @@
 @media (min-width: 900px) {
   .profileButtons {
     flex-direction: row;
+    justify-content: center;
   }
 }
 
@@ -197,6 +200,41 @@
   .hidden_avatar {
     display: block;
   }
+}
+
+.modal-dialog {
+  top: 30%;
+}
+
+.pagin {
+  display: flex;
+  justify-content: center;
+  color: #444;
+  list-style: none;
+  margin: 30px 0 70px 0;
+}
+.activePage {
+  background-color: #444;
+  color: #fff;
+}
+
+.paginationBtns {
+  background-color: #eee;
+  color: #222;
+  cursor: pointer;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  margin: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  width: 2rem;
+}
+
+.paginationActive {
+  background-color: #0d91f2;
+  color: #fff;
 }
 
 /* /////////////////////////////////loader ///////////////////////////////*/

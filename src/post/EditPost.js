@@ -21,6 +21,8 @@ export default class EditPost extends Component {
         preview:''
     }
 
+    
+
     componentDidMount(){
         this.postData = new FormData()
         const postId = this.props.match.params.postId
@@ -63,6 +65,7 @@ export default class EditPost extends Component {
     handleImage = name => e => {
       this.setState({error: '', loading: true})
       let file = e.target.files[0]
+      console.log(window.URL.createObjectURL(file))
       let value = name === 'photo' && e.target.files[0] 
       const fileSize = name === 'photo' ? e.target.files[0].size : 0
       this.postData.set(name, value)
