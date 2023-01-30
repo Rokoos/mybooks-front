@@ -128,7 +128,7 @@ export default class Comment extends Component {
           <div className="comment_info">
             <p className="font-italic mark comment_info-user">
               {" "}
-              Posted by <Link to={posterId}>{posterName} </Link> on{" "}
+              Added by <Link to={posterId}>{posterName} </Link> on{" "}
               {new Date(comment.createdAt).toDateString()}
             </p>
             {isAuthenticated().user &&

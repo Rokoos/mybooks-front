@@ -107,59 +107,66 @@ const Profile = ({ match, history }) => {
   const renderProfile = () => (
     <Fragment>
       <div className="row">
-        <div className="col-md-4">
-          <img
-            className="img-fluid z-depth-1 rounded-circle ml-5 mb-5"
-            src={photoUrl}
-            onError={(i) => (i.target.src = `${avatar}`)}
-            style={{ width: "10rem" }}
-            alt={user.name}
-          />
-        </div>
-        <div className="col-md-8 mb-5">
-          <div className="lead mt-2">
-            <p className="font-italic">
-              <strong>{user.name}</strong>
-            </p>
-            {user.about && <p>{user.about}</p>}
-            <p className="font-italic">{`${user.name} joined on ${new Date(
-              user.createdAt
-            ).toDateString()}`}</p>
-          </div>
-          <div className="profileButtons">
-            {isAuthenticated().user &&
-              isAuthenticated().user._id === userId && (
-                <Fragment>
-                  <Link
-                    to={`/user/edit/${user._id}`}
-                    className="btn btn-raised btn-success mb-2 custom_btn"
-                  >
-                    Edit Profile
-                  </Link>
-                  <Link
-                    to={`/book/create`}
-                    className="btn btn-raised btn-info  mb-2 custom_btn"
-                  >
-                    Add Book
-                  </Link>
-                </Fragment>
-              )}
-            {isAuthenticated().user &&
-              (isAuthenticated().user._id === userId ||
-                isAuthenticated().user.role === "admin") && (
-                <DeleteUser userId={userId} />
-              )}
-          </div>
-        </div>
+        {isAuthenticated().token &&
+          (isAuthenticated().user._id === userId ||
+            isAuthenticated().user.role === "admin") && (
+            <Fragment>
+              <h2 className="mt-5 mb-5 ml-2">Profile</h2>
+              <div className="col-md-4">
+                <img
+                  className="img-fluid z-depth-1 rounded-circle ml-5 mb-5"
+                  src={photoUrl}
+                  onError={(i) => (i.target.src = `${avatar}`)}
+                  style={{ width: "10rem" }}
+                  alt={user.name}
+                />
+              </div>
+              <div className="col-md-8 mb-5">
+                <div className="lead mt-2">
+                  <p className="font-italic">
+                    <strong>{user.name}</strong>
+                  </p>
+                  {user.about && <p>{user.about}</p>}
+                  <p className="font-italic">{`${
+                    user.name
+                  } joined on ${new Date(user.createdAt).toDateString()}`}</p>
+                </div>
+                <div className="profileButtons">
+                  {isAuthenticated().user &&
+                    isAuthenticated().user._id === userId && (
+                      <Fragment>
+                        <Link
+                          to={`/user/edit/${user._id}`}
+                          className="btn btn-raised btn-success mb-2 custom_btn"
+                        >
+                          Edit Profile
+                        </Link>
+                        <Link
+                          to={`/book/create`}
+                          className="btn btn-raised btn-info  mb-2 custom_btn"
+                        >
+                          Add Book
+                        </Link>
+                      </Fragment>
+                    )}
+                  {isAuthenticated().user &&
+                    (isAuthenticated().user._id === userId ||
+                      isAuthenticated().user.role === "admin") && (
+                      <DeleteUser userId={userId} />
+                    )}
+                  <hr />
+                </div>
+              </div>
+            </Fragment>
+          )}
       </div>
       <div className="row">
         <div className="col md-12">
-          <hr />
           {posts.length === 0 ? (
             <h4>{user.name} added 0 books so far.</h4>
           ) : (
             <Fragment>
-              <h2>Books added by {user.name}</h2>
+              <h2 className="mt-5 mb-3">Books added by {user.name}</h2>
               <div className="posts_container">
                 {posts.map((post) => (
                   <Post post={post} key={post._id} />
@@ -174,8 +181,6 @@ const Profile = ({ match, history }) => {
 
   return (
     <div className="container">
-      <h2 className="mt-5 mb-5 ml-2">Profile</h2>
-
       {loading ? (
         <Spinner />
       ) : (

@@ -2,6 +2,11 @@
   max-width: 1600px;
 }
 
+/* /////////////View/////////////// */
+.view_font {
+  font-family: "Great Vibes", cursive;
+}
+
 /* ////////////////////// Home //////////////////// */
 .home-text {
   font-size: 1.5rem;
