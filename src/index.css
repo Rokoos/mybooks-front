@@ -3,9 +3,6 @@
 }
 
 /* /////////////View/////////////// */
-.view_font {
-  font-family: "Great Vibes", cursive;
-}
 
 /* ////////////////////// Home //////////////////// */
 .home-text {
@@ -20,8 +17,31 @@
   display: flex;
 }
 /*/////////////////// View ///////////////////*/
+
+.mask_text {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.view_font {
+  font-family: "Great Vibes", cursive;
+}
 .view {
   height: 40vh !important;
+}
+@media (min-width: 816px) {
+  .mask_text {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-right: 3rem;
+  }
+}
+@media (min-width: 1500px) {
+  .view {
+    height: 80vh !important;
+  }
 }
 
 #ignac {

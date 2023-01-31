@@ -160,7 +160,7 @@ const Profile = ({ match, history }) => {
             </Fragment>
           )}
       </div>
-      <div className="row">
+      <div className="row text-center mt-5 mb-5">
         <div className="col md-12">
           {posts.length === 0 ? (
             <h4>{user.name} added 0 books so far.</h4>
