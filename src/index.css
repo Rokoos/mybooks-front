@@ -22,6 +22,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  font-size: 1.6rem;
 }
 
 .view_font {
@@ -30,12 +31,18 @@
 .view {
   height: 40vh !important;
 }
+@media (min-width: 420px) {
+  .mask_text {
+    font-size: 2rem;
+  }
+}
 @media (min-width: 816px) {
   .mask_text {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
     padding-right: 3rem;
+    font-size: 2.3rem;
   }
 }
 @media (min-width: 1500px) {
