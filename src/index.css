@@ -139,6 +139,11 @@
   justify-content: center;
 }
 
+.loko {
+  width: 10rem;
+  height: 10rem;
+}
+
 /*/////////////////// SinglePost ///////////////////*/
 
 .single_post-photo,
@@ -206,7 +211,7 @@
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 768px) {
   .profileButtons {
     flex-direction: row;
     justify-content: center;

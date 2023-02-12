@@ -25,7 +25,7 @@ const DeleteUser = ({ userId, history }) => {
   return (
     <Modal
       remove={deleteAccount}
-      title={"Delete Profile"}
+      title={"Delete"}
       text={"Are You sure You want to delete your account?"}
     />
   );

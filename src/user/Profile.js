@@ -93,10 +93,10 @@ const Profile = ({ match, history }) => {
               <h2 className="mt-5 mb-5 ml-2">Profile</h2>
               <div className="col-md-4 user_avatar">
                 <img
-                  className="img-fluid z-depth-1 rounded-circle  mb-5"
+                  className="img-fluid z-depth-1 rounded-circle  mb-5 loko"
                   src={photoUrl}
                   onError={(i) => (i.target.src = `${avatar}`)}
-                  style={{ width: "10rem" }}
+                  // style={{ width: "10rem" }}
                   alt={user.name}
                 />
               </div>
