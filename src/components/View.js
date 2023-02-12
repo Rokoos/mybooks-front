@@ -14,7 +14,7 @@ const View = () => {
   return (
     <div className="container p-0">
       <MDBView src={photo}>
-        <MDBMask className="mask_text text-white">
+        <MDBMask overlay="black-light" className="mask_text text-white">
           <span className="view_font pb-4">
             Let's write about aviation books...
           </span>

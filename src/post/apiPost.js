@@ -21,24 +21,6 @@ export const postList = (page) => {
     .catch((error) => console.log(error));
 };
 
-/////////////////////////////////////////////
-
-// export const listByUser = (userId, token, page) => {
-//   return fetch(
-//     `${process.env.REACT_APP_API_URL}/posts/by/${userId}?page=${page}`,
-//     {
-//       method: "GET",
-//       headers: {
-//         Accept: "application/json",
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${token}`,
-//       },
-//     }
-//   )
-//     .then((response) => response.json())
-//     .catch((error) => console.log(error));
-// };
-
 ///////////////////////////////////////////////
 
 export const singlePost = (postId) => {
@@ -140,7 +122,7 @@ export const unlike = (userId, token, postId) => {
 
 /////////////////////////////////////////////////
 
-export const comment = (userId, token, postId, postUserId, text) => {
+export const comment = (data, token) => {
   return fetch(`${process.env.REACT_APP_API_URL}/post/comment`, {
     method: "POST",
     headers: {
@@ -148,7 +130,7 @@ export const comment = (userId, token, postId, postUserId, text) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ userId, postId, postUserId, text }),
+    body: JSON.stringify(data),
   })
     .then((response) => {
       return response.json();

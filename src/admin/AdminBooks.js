@@ -9,7 +9,7 @@ const Books = ({ books }) => {
         <h4 className="mt-3 mb-5">Books</h4>
 
         {books.length < 1 ? (
-          <h4>Nima książek</h4>
+          <h4>Nie dodano jeszcze żadnych książek</h4>
         ) : (
           books.map((book) => (
             <div

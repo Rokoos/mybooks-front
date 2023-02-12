@@ -14,10 +14,10 @@ const SingleBook = lazy(() => import("./post/SingleBook"));
 const EditPost = lazy(() => import("./post/EditPost"));
 const Home = lazy(() => import("./components/Home"));
 
+const NotFound = lazy(() => import("./components/NotFound"));
+
 const AdminRoute = lazy(() => import("./admin/AdminRoute"));
 const AdminDashboard = lazy(() => import("./admin/AdminDashboard"));
-// const AdminBooks = lazy(() => import("./admin/AdminBooks"));
-// const AdminUsers = lazy(() => import("./admin/AdminUsers"));
 
 const routes = () => (
   <Suspense fallback={""}>
@@ -34,6 +34,7 @@ const routes = () => (
         <PrivateRoute path="/user/edit/:userId" exact component={EditProfile} />
         <PrivateRoute path="/user/:userId" exact component={Profile} />
         <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
+        <Route component={NotFound} />
       </Switch>
     </MDBContainer>
   </Suspense>

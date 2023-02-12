@@ -2,8 +2,6 @@
   max-width: 1600px;
 }
 
-/* /////////////View/////////////// */
-
 /* ////////////////////// Home //////////////////// */
 .home-text {
   font-size: 1.5rem;
@@ -15,6 +13,22 @@
 
 .center_books {
   display: flex;
+}
+
+/* ///////////////Not Found///////////////////// */
+.not_found {
+  color: #888;
+  font-size: 2rem;
+  font-weight: 600;
+  height: 100vh;
+  /* background-color: #0d91f2; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.not_found p {
+  border-bottom: solid 1px #0d91f2;
 }
 /*/////////////////// View ///////////////////*/
 
@@ -118,6 +132,11 @@
 }
 .post-img {
   height: 200px;
+}
+
+.user_avatar {
+  display: flex;
+  justify-content: center;
 }
 
 /*/////////////////// SinglePost ///////////////////*/

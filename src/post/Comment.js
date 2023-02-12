@@ -40,21 +40,29 @@ export default class Comment extends Component {
       return false;
     }
 
-    // if (this.isValid()) {
     const userId = isAuthenticated().user._id;
+    const userName = isAuthenticated().user.name;
     const token = isAuthenticated().token;
     const postId = this.props.post._id;
+    const postTitle = this.props.post.title;
     const postUserId = this.props.post.postedBy._id;
-    comment(userId, token, postId, postUserId, this.state.text).then((data) => {
+    const postUserEmail = this.props.post.postedBy.email;
+
+    const data = {
+      userId,
+      userName,
+      postId,
+      postTitle,
+      postUserId,
+      postUserEmail,
+      text: this.state.text,
+    };
+    comment(data, token).then((data) => {
       if (data.error) {
-        console.log("dududu");
         this.setState({
           error: data.error,
-          // loading: false,
         });
       } else {
-        console.log("data", data);
-        //dispatch fresh list of comments to parent (SinglePost)
         this.props.updateComments(data.comments);
         this.setState({
           text: "",
@@ -73,11 +81,8 @@ export default class Comment extends Component {
       // this.setState({ loading: true });
       uncomment(userId, token, postId, id).then((data) => {
         if (data.error) {
-          console.log("dataerror", data);
-          // console.log(data.error);
           this.setState({ error: data.error });
         } else {
-          console.log("data", data);
           this.props.updateComments(data);
           this.setState({ text: "" });
         }

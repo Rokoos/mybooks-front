@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useCallback } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import AdminNav from "./AdminNav";
 import AdminBooks from "./AdminBooks";
 import AdminUsers from "./AdminUsers";
@@ -7,19 +7,16 @@ import { filterBooks } from "../post/apiPost";
 import { fetchUsers } from "../user/apiUser";
 
 const AdminDashboard = () => {
-  // const [adminData, setAdminData] = useState([]);
   const [users, setUsers] = useState([]);
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [booksOrUsers, setBooksOrUsers] = useState("books");
-  // console.log(booksOrUsers);
   const [page, setPage] = useState(1);
   const [nextPage, setNextPage] = useState(null);
   const [previousPage, setPreviousPage] = useState(null);
   const [numOfPages, setNumOfPages] = useState(null);
 
   const checkActiveBtn = (arg) => {
-    // console.log("arg", arg);
     if (arg === page) {
       return "paginationActive";
     }
@@ -65,7 +62,6 @@ const AdminDashboard = () => {
     setLoading(true);
     if (booksOrUsers === "books") {
       filterBooks({}, page).then((data) => {
-        // console.log("books", data);
         if (data.error) {
           console.log(data.error);
           setLoading(false);
@@ -80,12 +76,10 @@ const AdminDashboard = () => {
       });
     } else if (booksOrUsers === "users") {
       fetchUsers(page).then((data) => {
-        // console.log("users", data);
         if (data.error) {
           console.log(data.error);
           setLoading(false);
         } else {
-          // setAdminData(data.results);
           setUsers(data.results);
           setNextPage(data.next || null);
           setNumOfPages(data.numberOfPages);
@@ -113,16 +107,6 @@ const AdminDashboard = () => {
       <hr />
       <AdminNav setBooksOrUsers={setBooksOrUsers} />
       {loading ? <Spinner /> : renderContent()}
-      {/* <Fragment>
-        {loading ? (
-          <Spinner />
-        ) : booksOrUsers === "books" ? (
-          <AdminBooks books={adminData} />
-        ) : (
-          <AdminUsers users={adminData} />
-        )}
-      </Fragment>
-      {numOfPages > 1 && renderPagination()} */}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const AdminNav = ({ setBooksOrUsers, setAdminData }) => (
+const AdminNav = ({ setBooksOrUsers }) => (
   <nav>
     <ul className="nav d-flex flex-column align-items-center  flex-md-row justify-content-md-center w-75 mx-auto">
       <Link to="/book/create" className="btn btn-sm btn-primary">

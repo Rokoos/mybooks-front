@@ -2,7 +2,6 @@ import React, { Component, Fragment } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { isAuthenticated } from "../auth";
 import { singlePost, like, unlike } from "./apiPost";
-import { sortedComments } from "../utils";
 import DeletePost from "./DeletePost";
 import Spinner from "../components/Spinner";
 import Comment from "./Comment";

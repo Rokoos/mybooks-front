@@ -25,7 +25,6 @@ const Profile = ({ match, history }) => {
     : avatar;
 
   const checkActiveBtn = (arg) => {
-    // console.log("arg", arg);
     if (arg === page) {
       return "paginationActive";
     }
@@ -67,24 +66,6 @@ const Profile = ({ match, history }) => {
     );
   };
 
-  // useEffect(() => {
-  //   loadPosts(userId);
-  // }, [page, userId]);
-
-  // const loadPosts = (userId) => {
-  //   const token = isAuthenticated().token;
-  //   listByUser(userId, token, page).then((data) => {
-  //     if (data.error) console.log(data.error);
-  //     else {
-  //       setPosts(data.results);
-  //       setNumOfPages(data.numberOfPages);
-  //       setNextPage(data.next || null);
-  //       setPreviousPage(data.previous || null);
-  //       setLoading(false);
-  //     }
-  //   });
-  // };
-
   useEffect(() => {
     setLoading(true);
     const token = isAuthenticated().token;
@@ -98,8 +79,6 @@ const Profile = ({ match, history }) => {
         setNumOfPages(data.books.numberOfPages);
         setNextPage(data.books.next || null);
         setPreviousPage(data.books.previous || null);
-        // console.log("books", data.books.results);
-        // loadPosts(data._id);
       }
     });
   }, [page, userId]);
@@ -112,9 +91,9 @@ const Profile = ({ match, history }) => {
             isAuthenticated().user.role === "admin") && (
             <Fragment>
               <h2 className="mt-5 mb-5 ml-2">Profile</h2>
-              <div className="col-md-4">
+              <div className="col-md-4 user_avatar">
                 <img
-                  className="img-fluid z-depth-1 rounded-circle ml-5 mb-5"
+                  className="img-fluid z-depth-1 rounded-circle  mb-5"
                   src={photoUrl}
                   onError={(i) => (i.target.src = `${avatar}`)}
                   style={{ width: "10rem" }}
@@ -154,13 +133,13 @@ const Profile = ({ match, history }) => {
                       isAuthenticated().user.role === "admin") && (
                       <DeleteUser userId={userId} />
                     )}
-                  <hr />
                 </div>
               </div>
+              <hr />
             </Fragment>
           )}
       </div>
-      <div className="row text-center mt-5 mb-5">
+      <div className="row text-center mt-3 mb-5">
         <div className="col md-12">
           {posts.length === 0 ? (
             <h4>{user.name} added 0 books so far.</h4>
