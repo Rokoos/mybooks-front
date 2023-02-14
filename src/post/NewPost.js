@@ -93,9 +93,12 @@ export default class NewPost extends Component {
     e.preventDefault();
     this.setState({ loading: true });
 
+    // console.log("postData", this.postData);
+
     if (this.isValid()) {
       const userId = isAuthenticated().user._id;
       const token = isAuthenticated().token;
+      // console.log("postData", this.postData);
       createPost(userId, token, this.postData).then((data) => {
         if (data.error) {
           console.log(data.error);
@@ -197,7 +200,7 @@ export default class NewPost extends Component {
               {charNumber(body, 1000) <= 0 ? (
                 <p style={{ color: "red" }}>{charNumber(body, 1000)}</p>
               ) : (
-                <p>{body.length} of 1000</p>
+                <p className="text-light">{body.length} of 1000</p>
               )}
               <div className="text-center mb-3">
                 <MDBBtn

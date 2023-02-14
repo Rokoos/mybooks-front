@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { comment, uncomment } from "./apiPost";
 import { isAuthenticated } from "../auth";
-import { errorMessage, charNumber } from "../utils";
+import { errorMessage, charNumber, getUserPhoto } from "../utils";
 import avatar from "../images/avatar.png";
 import { MDBInput } from "mdbreact";
 import Modal from "../components/Modal";
@@ -18,20 +18,7 @@ export default class Comment extends Component {
     this.setState({ text: e.target.value });
   };
 
-  // isValid = () => {
-  //   const { text } = this.state;
-  //   if (!text.length > 0 || text.length > 500) {
-  //     this.setState({
-  //       error: "Comment should not be empty or more than 500 characters long",
-  //     });
-  //     return false;
-  //   }
-
-  //   return true;
-  // };
-
   addComment = (e) => {
-    // this.setState({ loading: true });
     e.preventDefault();
 
     if (!isAuthenticated()) {
@@ -100,19 +87,11 @@ export default class Comment extends Component {
 
   renderComments = (arr) =>
     arr.map((comment, i) => {
-      const posterId =
-        comment.commentedBy.visible === 1
-          ? `/user/${comment.commentedBy._id}`
-          : ``;
-      const posterName =
-        comment.commentedBy.visible === 1
-          ? comment.commentedBy.name
-          : "Unknown";
+      const posterId = `/user/${comment.commentedBy._id}`;
 
-      const posterPhoto =
-        comment.commentedBy.visible === 1
-          ? `${process.env.REACT_APP_API_URL}/user/photo/${comment.commentedBy._id}`
-          : avatar;
+      const posterName = comment.commentedBy.name;
+
+      const posterPhoto = getUserPhoto(comment.commentedBy._id);
 
       return (
         <div className="mb-4 comment_box" key={i}>
@@ -125,7 +104,7 @@ export default class Comment extends Component {
                 width="30px"
                 onError={(i) => (i.target.src = `${avatar}`)}
                 src={posterPhoto}
-                alt={comment.commentedBy.name}
+                alt={posterName}
               />
             </Link>
             <p className=" comment_text mb-3">{comment.text}</p>
@@ -146,7 +125,6 @@ export default class Comment extends Component {
 
   render() {
     const { comments } = this.props;
-    // console.log("comments", comments);
     const { text, error } = this.state;
     return (
       <Fragment>

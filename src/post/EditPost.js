@@ -11,7 +11,12 @@ import {
   MDBInput,
   MDBBtn,
 } from "mdbreact";
-import { errorMessage, charNumber, getPostPhoto } from "../utils";
+import {
+  bookCategories,
+  errorMessage,
+  charNumber,
+  getPostPhoto,
+} from "../utils";
 import Spinner from "../components/Spinner";
 import bookAvatar from "../images/bookAvatar.png";
 
@@ -21,6 +26,7 @@ export default class EditPost extends Component {
     author: "",
     title: "",
     body: "",
+    category: "",
     redirectToProfile: false,
     error: "",
     photo: "",
@@ -30,18 +36,23 @@ export default class EditPost extends Component {
   };
 
   componentDidMount() {
+    this.setState({ loading: true });
     this.postData = new FormData();
     const postId = this.props.match.params.postId;
     singlePost(postId).then((data) => {
       if (data.error) {
-        this.setState({ redirectToProfile: true });
+        this.setState({ loading: false, redirectToProfile: true });
       } else {
+        // console.log("data", data);
         this.setState({
           id: data.post._id,
           author: data.post.author,
           title: data.post.title,
+          photo: getPostPhoto(postId) || bookAvatar,
           body: data.post.body,
+          category: data.post.category,
           error: "",
+          loading: false,
         });
       }
     });
@@ -75,7 +86,6 @@ export default class EditPost extends Component {
   handleImage = (name) => (e) => {
     this.setState({ error: "", loading: true });
     let file = e.target.files[0];
-    console.log(window.URL.createObjectURL(file));
     let value = name === "photo" && e.target.files[0];
     const fileSize = name === "photo" ? e.target.files[0].size : 0;
     this.postData.set(name, value);
@@ -114,6 +124,7 @@ export default class EditPost extends Component {
             author: "",
             title: "",
             body: "",
+            category: "",
             photo: "",
             redirectToProfile: true,
           });
@@ -122,7 +133,7 @@ export default class EditPost extends Component {
     }
   };
 
-  editPostForm = (author, title, body, error, photo) => (
+  editPostForm = (author, title, body, category, error, photo) => (
     <MDBRow center className="mt-5 mb-5">
       <MDBCol md="8" lg="6" xl="6">
         <MDBCard>
@@ -170,6 +181,31 @@ export default class EditPost extends Component {
               className="mb-5"
             />
 
+            <select
+              style={{
+                width: "100%",
+                border: "none",
+                fontWeight: "300",
+                borderBottom: "1px solid #ced4da",
+                backgroundColor: "transparent",
+                padding: 0,
+                color: "#757575",
+                cursor: "pointer",
+              }}
+              placeholder="Choose "
+              className="mb-3"
+              onChange={this.handleChange("category")}
+            >
+              <option value="">{category}</option>
+              {bookCategories
+                .filter((c) => c !== category)
+                .map((cat) => (
+                  <option value={cat} key={cat}>
+                    {cat}
+                  </option>
+                ))}
+            </select>
+
             <MDBInput
               onChange={this.handleChange("body")}
               value={body}
@@ -181,7 +217,7 @@ export default class EditPost extends Component {
             {charNumber(body, 1000) <= 0 ? (
               <p style={{ color: "red" }}>{charNumber(body, 1000)}</p>
             ) : (
-              <p>{body.length} of 1000</p>
+              <p className="text-light">{body.length} of 1000</p>
             )}
             <div className="text-center mb-3">
               <MDBBtn
@@ -205,19 +241,15 @@ export default class EditPost extends Component {
       author,
       title,
       body,
+      category,
+      photo,
       error,
       redirectToProfile,
       loading,
       preview,
     } = this.state;
 
-    const photoUrl = id
-      ? `${
-          process.env.REACT_APP_API_URL
-        }/post/photo/${id}?${new Date().getTime()}`
-      : bookAvatar;
-
-    const ziutek = preview ? preview : photoUrl;
+    const ziutek = preview ? preview : photo;
 
     if (redirectToProfile) {
       return <Redirect to={`/user/${isAuthenticated().user._id}`} />;
@@ -227,7 +259,7 @@ export default class EditPost extends Component {
         {loading ? (
           <Spinner />
         ) : (
-          this.editPostForm(author, title, body, error, ziutek)
+          this.editPostForm(author, title, body, category, error, ziutek)
         )}
       </MDBContainer>
     );

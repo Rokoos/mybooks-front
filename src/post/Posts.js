@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { postList, filterBooks } from "./apiPost";
+import { filterBooks } from "./apiPost";
 import Post from "./Post";
 import Spinner from "../components/Spinner";
 import Filters from "../components/Filters";
@@ -17,14 +17,12 @@ class Posts extends Component {
   };
 
   checkActiveBtn = (arg) => {
-    // console.log("arg", arg);
     if (arg === this.state.page) {
       return "paginationActive";
     }
   };
 
   renderBtn = (arg) => {
-    // console.log("arg", arg);
     return (
       <span
         onClick={() => {
@@ -96,29 +94,9 @@ class Posts extends Component {
           previous: data.previous || null,
           next: data.next || null,
         });
-        // console.log("results", data);
       }
     });
   };
-
-  // fetchPosts = () => {
-  //   this.setState({ loading: true });
-  //   postList(this.state.page).then((data) => {
-  //     if (data.error) {
-  //       console.log(data.error);
-  //       this.setState({ loading: false });
-  //     } else {
-  //       this.setState({
-  //         posts: data.results,
-  //         loading: false,
-  //         numOfPages: data.numberOfPages,
-  //         previous: data.previous || null,
-  //         next: data.next || null,
-  //       });
-  //       // console.log("data", data);
-  //     }
-  //   });
-  // };
 
   setFilters = (name) => (e) => {
     e.preventDefault();

@@ -2,15 +2,16 @@ import React, { Component, Fragment } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { isAuthenticated } from "../auth";
 import { singlePost, like, unlike } from "./apiPost";
+import { getPostPhoto } from "../utils";
 import DeletePost from "./DeletePost";
 import Spinner from "../components/Spinner";
 import Comment from "./Comment";
-
 import DefaultPhoto from "../images/bookAvatar.png";
 
 export default class SingleBook extends Component {
   state = {
     post: "",
+    photo: "",
     redirectToSignin: false,
     like: false,
     likes: 0,
@@ -32,6 +33,7 @@ export default class SingleBook extends Component {
       } else {
         this.setState({
           post: data.post,
+          photo: getPostPhoto(postId) || DefaultPhoto,
           likes: data.post.likes.length,
           like: this.checkLike(data.post.likes),
           comments: data.comments,
@@ -67,20 +69,13 @@ export default class SingleBook extends Component {
     });
   };
 
-  renderPost = (post) => {
-    const posterId =
-      post.postedBy.visible === 1
-        ? `/user/${post.postedBy._id}`
-        : `/post/${post._id}`;
-    const posterName =
-      post.postedBy.visible === 1 ? post.postedBy.name : "Unknown";
-
+  renderPost = (post, photo) => {
     const { like, likes } = this.state;
     return (
       <div className="card-body">
         <div className="mb-3 single_post-photo  text-center">
           <img
-            src={`${process.env.REACT_APP_API_URL}/post/photo/${post._id}`}
+            src={photo}
             alt={post.title}
             style={{ height: "300px" }}
             onError={(i) => (i.target.src = `${DefaultPhoto}`)}
@@ -114,7 +109,8 @@ export default class SingleBook extends Component {
           </div>
           <p className="font-italic comment-info-user">
             {" "}
-            Posted by <Link to={`${posterId}`}>{posterName} </Link>
+            Posted by{" "}
+            <Link to={`/user/${post.postedBy._id}`}>{post.postedBy.name} </Link>
             on {new Date(post.createdAt).toDateString()}
           </p>
         </div>
@@ -145,14 +141,14 @@ export default class SingleBook extends Component {
   };
 
   render() {
-    const { post, redirectToSignin, comments } = this.state;
+    const { post, photo, redirectToSignin, comments } = this.state;
 
     if (redirectToSignin) {
       return <Redirect to={"/signin"} />;
     }
     return (
       <div className="container mb-5">
-        {!post ? <Spinner /> : this.renderPost(post)}
+        {!post ? <Spinner /> : this.renderPost(post, photo)}
         <Comment
           post={post}
           postId={post._id}

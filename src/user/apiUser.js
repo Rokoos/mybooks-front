@@ -55,10 +55,10 @@ export const remove = (userId, token) => {
 
 export const isUser = (user, next) => {
   if (typeof window !== "undefined") {
-    if (localStorage.getItem("jwt")) {
-      let auth = JSON.parse(localStorage.getItem("jwt"));
+    if (localStorage.getItem("avBooks")) {
+      let auth = JSON.parse(localStorage.getItem("avBooks"));
       auth.user = user;
-      localStorage.setItem("jwt", JSON.stringify(auth));
+      localStorage.setItem("avBooks", JSON.stringify(auth));
       next();
     }
   }

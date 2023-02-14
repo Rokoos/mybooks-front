@@ -6,6 +6,7 @@ import DeleteUser from "./DeleteUser";
 import Post from "../post/Post";
 import Spinner from "../components/Spinner";
 import avatar from "../images/avatar.png";
+import { getUserPhoto } from "../utils";
 
 const Profile = ({ match, history }) => {
   const [user, setUser] = useState("");
@@ -18,11 +19,7 @@ const Profile = ({ match, history }) => {
 
   const userId = match.params.userId;
 
-  const photoUrl = user._id
-    ? `${process.env.REACT_APP_API_URL}/user/photo/${
-        user._id
-      }?${new Date().getTime()}`
-    : avatar;
+  const photoUrl = user._id ? getUserPhoto(user._id) : avatar;
 
   const checkActiveBtn = (arg) => {
     if (arg === page) {
@@ -70,7 +67,7 @@ const Profile = ({ match, history }) => {
     setLoading(true);
     const token = isAuthenticated().token;
     fetchUser(userId, token, page).then((data) => {
-      if (data.error || data.visible === 0) {
+      if (data.error) {
         history.push("/users");
       } else {
         setLoading(false);
@@ -96,7 +93,6 @@ const Profile = ({ match, history }) => {
                   className="img-fluid z-depth-1 rounded-circle  mb-5 loko"
                   src={photoUrl}
                   onError={(i) => (i.target.src = `${avatar}`)}
-                  // style={{ width: "10rem" }}
                   alt={user.name}
                 />
               </div>
